@@ -1,9 +1,9 @@
 const CACHE_NAME = 'tip-calculator-cache-v1';
 const urlsToCache = [
   '/tipcalc/',
-  '/tipcalc/src/index.html',
-  '/tipcalc/src/styles.css',
-  '/tipcalc/src/app.js',
+  '/tipcalc/index.html',
+  '/tipcalc/styles.css',
+  '/tipcalc/app.js',
   '/tipcalc/icon-192x192.png',
   '/tipcalc/icon-512x512.png'
 ];

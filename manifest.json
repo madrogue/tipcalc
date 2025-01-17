@@ -1,7 +1,7 @@
 {
   "name": "Tip Calculator",
   "short_name": "TipCalc",
-  "start_url": "/tipcalc/src/index.html",
+  "start_url": "/tipcalc/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
