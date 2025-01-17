@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="../manifest.json">
+  <title>TipCalc</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="container-top"></div>
+    <div class="bill-input-container">
+      <input type="number" id="billAmount" placeholder="Bill amount" />
+      <button class="clear-button" onclick="clearAmount()">C</button>
+    </div>
+
+    <label for="tipPercentage">Tip</label>
+    <span id="tipValue">15%</span>
+    <div class="tip-input-container">
+      <input type="range" id="tipPercentage" min="0" max="30" value="15" step="1" />
+    </div>
+
+    <div class="options">
+      <select id="tipOption" onchange="toggleSurveyInputs()">
+        <option value="exact">Exact Tip</option>
+        <option value="roundTipUp">Round Tip Up</option>
+        <option value="roundTipDown">Round Tip Down</option>
+        <option value="roundTotalUp">Round Total Up</option>
+        <option value="roundTotalDown">Round Total Down</option>
+        <option value="survey">Survey</option>
+      </select>
+    </div>
+
+    <div id="surveyInputs" style="display: none;">
+      <table class="survey-table">
+        <tr>
+          <td class="left-column"><label for="serviceRating">Service</label></td>
+          <td class="right-column">
+            <select id="serviceRating">
+              <option value="4">A</option>
+              <option value="3">B</option>
+              <option value="2">C</option>
+              <option value="1">D</option>
+              <option value="0">F</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="left-column"><label for="foodRating">Food</label></td>
+          <td class="right-column">
+            <select id="foodRating">
+              <option value="4">A</option>
+              <option value="3">B</option>
+              <option value="2">C</option>
+              <option value="1">D</option>
+              <option value="0">F</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="left-column"><label for="drinksRating">Drinks</label></td>
+          <td class="right-column">
+            <select id="drinksRating">
+              <option value="4">A</option>
+              <option value="3">B</option>
+              <option value="2">C</option>
+              <option value="1">D</option>
+              <option value="0">F</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="left-column"><label for="atmosphereRating">Atmosphere</label></td>
+          <td class="right-column">
+            <select id="atmosphereRating">
+              <option value="4">A</option>
+              <option value="3">B</option>
+              <option value="2">C</option>
+              <option value="1">D</option>
+              <option value="0">F</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="container-bottom">
+    <table class="results-table">
+      <tr>
+        <td class="left-column">Effective Tip</td>
+        <td class="right-column"><span id="effectiveTipPercentage">0%</span></td>
+      </tr>
+      <tr>
+        <td class="left-column">Bill</td>
+        <td class="right-column"><span id="billResult">$0.00</span></td>
+      </tr>
+      <tr>
+        <td class="left-column">Tip</td>
+        <td class="right-column border-green-forest"><span id="tipAmount">$0.00</span></td>
+      </tr>
+      <tr>
+        <td class="left-column">Total</td>
+        <td class="right-column border-green-dark"><span id="totalAmount">$0.00</span></td>
+      </tr>
+    </table>
+
+    <div class="keypad">
+      <button onclick="appendNumber('1')">1</button>
+      <button onclick="appendNumber('2')">2</button>
+      <button onclick="appendNumber('3')">3</button>
+      <button onclick="appendNumber('4')">4</button>
+      <button onclick="appendNumber('5')">5</button>
+      <button onclick="appendNumber('6')">6</button>
+      <button onclick="appendNumber('7')">7</button>
+      <button onclick="appendNumber('8')">8</button>
+      <button onclick="appendNumber('9')">9</button>
+      <button onclick="clearAmount()">C</button>
+      <button onclick="appendNumber('0')">0</button>
+      <button onclick="backspace()">⌫</button>
+    </div>
+  </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>

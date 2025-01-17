@@ -1,0 +1,129 @@
+body {
+  font-family: Arial, sans-serif;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: #fff;
+  text-align: center;
+}
+
+input[type="number"],
+input[type="text"] {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="range"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.bill-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.tip-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-button {
+  margin-left: 10px;
+  padding: 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 4px;
+  background: #2196F3;
+  color: white;
+  cursor: pointer;
+}
+
+.clear-button:hover {
+  background-color: #1976D2;
+}
+
+.inline-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.survey-table {
+  width: 100%;
+  border: 1px solid lightgray;
+  padding: 5px;
+}
+
+/* .survey-table td {
+  padding: 5px;
+} */
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.keypad button {
+  padding: 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 4px;
+  background: #2196F3;
+  color: white;
+  cursor: pointer;
+}
+
+.keypad button:hover {
+  background-color: #1976D2;
+}
+
+.results-table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.left-column {
+  text-align: left;
+  padding-right: 10px;
+}
+
+.right-column {
+  text-align: right;
+}
+
+.green-forest {
+  color: white;
+  background-color: forestgreen;
+}
+
+.green-dark {
+  color: white;
+  background-color: darkgreen;
+}
+
+.border-green-forest {
+  border: 1px solid forestgreen;
+}
+
+.border-green-dark {
+  border: 1px solid darkgreen;
+}
