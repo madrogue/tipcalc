@@ -4,8 +4,11 @@ const urlsToCache = [
   '/tipcalc/index.html',
   '/tipcalc/styles.css',
   '/tipcalc/app.js',
-  '/tipcalc/icon-192x192.png',
-  '/tipcalc/icon-512x512.png'
+  '/tipcalc/assets/icon-192x192.png',
+  '/tipcalc/assets/icon-512x512.png',
+  '/tipcalc/assets/android-icon-36x36.png',
+  '/tipcalc/assets/android-icon-48x48.png',
+  '/tipcalc/assets/android-icon-72x72.png'
 ];
 
 self.addEventListener('install', event => {
