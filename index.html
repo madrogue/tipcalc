@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
   <title>TipCalc</title>
   <link rel="apple-touch-icon" sizes="57x57" href="/assets/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/assets/apple-icon-60x60.png">
@@ -18,9 +19,10 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileColor" content="#1a2d44">
   <meta name="msapplication-TileImage" content="/assets/ms-icon-144x144.png">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f2f5f9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f1c2e" media="(prefers-color-scheme: dark)">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="stylesheet" href="styles.css">
@@ -28,35 +30,40 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="container-top"></div>
-    <div class="bill-input-container">
-      <input type="number" id="billAmount" placeholder="Bill amount" />
-      <button class="clear-button" onclick="clearAmount()">C</button>
-    </div>
+  <div class="app">
 
-    <label for="tipPercentage">Tip</label>
-    <span id="tipValue">15%</span>
-    <div class="tip-input-container">
-      <input type="range" id="tipPercentage" min="0" max="30" value="15" step="1" />
-    </div>
+    <div class="scroll-area">
 
-    <div class="options">
-      <select id="tipOption" onchange="toggleSurveyInputs()">
-        <option value="exact">Exact Tip</option>
-        <option value="roundTipUp">Round Tip Up</option>
-        <option value="roundTipDown">Round Tip Down</option>
-        <option value="roundTotalUp">Round Total Up</option>
-        <option value="roundTotalDown">Round Total Down</option>
-        <option value="survey">Survey</option>
-      </select>
-    </div>
+      <div class="toolbar">
+        <button class="theme-toggle" id="themeToggle" aria-label="Switch color theme">Auto</button>
+      </div>
 
-    <div id="surveyInputs" style="display: none;">
-      <table class="survey-table">
-        <tr>
-          <td class="left-column"><label for="serviceRating">Service</label></td>
-          <td class="right-column">
+      <div class="bill-display" id="billDisplay" role="status" aria-live="polite">$0.00</div>
+
+      <div class="tip-control">
+        <div class="tip-header">
+          <label for="tipPercentage">Tip</label>
+          <span id="tipValue">15%</span>
+        </div>
+        <input type="range" id="tipPercentage" min="0" max="30" value="15" step="1"
+          aria-label="Tip percentage" aria-valuetext="15%" />
+      </div>
+
+      <div class="select-wrapper">
+        <select id="tipOption">
+          <option value="exact">Exact Tip</option>
+          <option value="roundTipUp">Round Tip Up</option>
+          <option value="roundTipDown">Round Tip Down</option>
+          <option value="roundTotalUp">Round Total Up</option>
+          <option value="roundTotalDown">Round Total Down</option>
+          <option value="survey">Survey</option>
+        </select>
+      </div>
+
+      <div id="surveyInputs" class="survey-panel">
+        <div class="survey-grid">
+          <label for="serviceRating">Service</label>
+          <div class="select-wrapper select-wrapper--sm">
             <select id="serviceRating">
               <option value="4">A</option>
               <option value="3">B</option>
@@ -64,11 +71,9 @@
               <option value="1">D</option>
               <option value="0">F</option>
             </select>
-          </td>
-        </tr>
-        <tr>
-          <td class="left-column"><label for="foodRating">Food</label></td>
-          <td class="right-column">
+          </div>
+          <label for="foodRating">Food</label>
+          <div class="select-wrapper select-wrapper--sm">
             <select id="foodRating">
               <option value="4">A</option>
               <option value="3">B</option>
@@ -76,11 +81,9 @@
               <option value="1">D</option>
               <option value="0">F</option>
             </select>
-          </td>
-        </tr>
-        <tr>
-          <td class="left-column"><label for="drinksRating">Drinks</label></td>
-          <td class="right-column">
+          </div>
+          <label for="drinksRating">Drinks</label>
+          <div class="select-wrapper select-wrapper--sm">
             <select id="drinksRating">
               <option value="4">A</option>
               <option value="3">B</option>
@@ -88,11 +91,9 @@
               <option value="1">D</option>
               <option value="0">F</option>
             </select>
-          </td>
-        </tr>
-        <tr>
-          <td class="left-column"><label for="atmosphereRating">Atmosphere</label></td>
-          <td class="right-column">
+          </div>
+          <label for="atmosphereRating">Atmosphere</label>
+          <div class="select-wrapper select-wrapper--sm">
             <select id="atmosphereRating">
               <option value="4">A</option>
               <option value="3">B</option>
@@ -100,31 +101,31 @@
               <option value="1">D</option>
               <option value="0">F</option>
             </select>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
+          </div>
+        </div>
+      </div>
 
-  <div class="container-bottom">
-    <table class="results-table">
-      <tr>
-        <td class="left-column">Effective Tip</td>
-        <td class="right-column"><span id="effectiveTipPercentage">0%</span></td>
-      </tr>
-      <tr>
-        <td class="left-column">Bill</td>
-        <td class="right-column"><span id="billResult">$0.00</span></td>
-      </tr>
-      <tr>
-        <td class="left-column">Tip</td>
-        <td class="right-column border-green-forest"><span id="tipAmount">$0.00</span></td>
-      </tr>
-      <tr>
-        <td class="left-column">Total</td>
-        <td class="right-column border-green-dark"><span id="totalAmount">$0.00</span></td>
-      </tr>
-    </table>
+      <div class="results">
+        <div class="result-row result-meta">
+          <span>Effective Tip</span>
+          <span id="effectiveTipPercentage">0%</span>
+        </div>
+        <div class="result-row result-bill">
+          <span>Bill</span>
+          <span id="billResult">$0.00</span>
+        </div>
+        <div class="result-row result-tip">
+          <span>Tip</span>
+          <span id="tipAmount">$0.00</span>
+        </div>
+        <div class="result-row result-total" id="totalRow"
+          role="button" tabindex="0" aria-label="Total — tap to copy">
+          <span>Total</span>
+          <span id="totalAmount">$0.00</span>
+        </div>
+      </div>
+
+    </div>
 
     <div class="keypad">
       <button onclick="appendNumber('1')">1</button>
@@ -136,12 +137,15 @@
       <button onclick="appendNumber('7')">7</button>
       <button onclick="appendNumber('8')">8</button>
       <button onclick="appendNumber('9')">9</button>
-      <button onclick="clearAmount()">C</button>
+      <button onclick="clearAmount()" class="btn-action">C</button>
       <button onclick="appendNumber('0')">0</button>
-      <button onclick="backspace()">⌫</button>
+      <button onclick="backspace()" class="btn-action">⌫</button>
     </div>
+
   </div>
-  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
   <script src="app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
