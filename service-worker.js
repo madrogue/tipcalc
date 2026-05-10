@@ -1,5 +1,5 @@
 // Bump this version string on every deploy to trigger a cache refresh
-const CACHE_NAME = 'tipcalc-v2.0.1';
+const CACHE_NAME = 'tipcalc-v2.0.2';
 
 const ASSETS = [
   '/tipcalc/',
