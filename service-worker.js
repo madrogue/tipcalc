@@ -1,5 +1,7 @@
-const CACHE_NAME = 'tip-calculator-cache-v1';
-const urlsToCache = [
+// Bump this version string on every deploy to trigger a cache refresh
+const CACHE_NAME = 'tipcalc-v2';
+
+const ASSETS = [
   '/tipcalc/',
   '/tipcalc/index.html',
   '/tipcalc/styles.css',
@@ -12,46 +14,37 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', event => {
+  // Pre-cache all assets, then skip waiting so this SW activates immediately
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  // Delete any old caches, then claim open tabs so they get the new SW
+  event.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(
+        keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+      ))
+      .then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Return the cached response if found, otherwise fetch from network
-        return response || fetch(event.request).then(networkResponse => {
-          // Cache the new response for future requests
-          return caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
-          });
+    caches.match(event.request).then(cached => {
+      return cached || fetch(event.request).then(response => {
+        return caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, response.clone());
+          return response;
         });
-      }).catch(() => {
-        // Fallback to a default offline page or asset if both cache and network fail
-        if (event.request.mode === 'navigate') {
-          return caches.match('/tipcalc/index.html');
-        }
-      })
-  );
-});
-
-self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
+      });
+    }).catch(() => {
+      if (event.request.mode === 'navigate') {
+        return caches.match('/tipcalc/index.html');
+      }
     })
   );
 });

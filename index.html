@@ -156,6 +156,15 @@
         .catch(error => {
           console.log('Service Worker registration failed:', error);
         });
+
+      // When a new SW takes control (skipWaiting + clients.claim), reload to
+      // pick up the freshly cached files. Guard prevents a double-reload loop.
+      let reloading = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (reloading) return;
+        reloading = true;
+        window.location.reload();
+      });
     }
   </script>
 </body>
