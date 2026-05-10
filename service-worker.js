@@ -14,11 +14,17 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', event => {
-  // Pre-cache all assets, then skip waiting so this SW activates immediately
+  // skipWaiting is chained AFTER caching so the SW never activates with an empty cache
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
   );
-  self.skipWaiting();
+});
+
+// Allow the page to manually trigger activation (used by the update banner)
+self.addEventListener('message', event => {
+  if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
